@@ -1,3 +1,5 @@
+import static javax.swing.JOptionPane.*;
+
 float tam,xt,yt,xt_,yt_,xc,yc,xtg,ytg,xtg_,ytg_,xp,yp,xtm,ytm;
 float lado,area;
 int figura = 7;
@@ -92,13 +94,13 @@ boolean cuadrado(){
     for(int j=height/3; j<=(height/3)+lado; j++){
       if(get(i,j)==color(255))
         cont ++;
-      if(cont>area*0.05)
-        return false;
-      else if(i==(width/3)+lado && j==(height/3)+lado)
-        return true;
     }
   }
-  return false;
+  if(cont<area*0.01){
+    cont=0;
+    return true;
+  }
+  else return false;
 }
 void draw(){
   background(160,160,160);
@@ -117,8 +119,6 @@ void draw(){
   //cuadrado
   fill(255);
   rect(width/3,height/3,lado,lado);
-
-  boolean ganar=cuadrado();
 
   
   float coordenadas[][] = {{xt,yt},{xt_,yt_},{xc,yc},{xtg,ytg},{xtg_,ytg_},{xp,yp},{xtm,ytm}};
@@ -167,5 +167,9 @@ void draw(){
         break;
     }
     popMatrix();
+  }
+  if(cuadrado()){
+    showMessageDialog(null,"has ganado");
+    exit();
   }
 }
